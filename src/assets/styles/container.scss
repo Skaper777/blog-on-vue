@@ -1,0 +1,33 @@
+.main-container {
+  max-width: 1160px;
+  width: 1160px;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 66% 33%;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px 0;
+
+  &__left,
+  &__right {
+    box-shadow: 0 0 15px -8px;
+    border-radius: 3px;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: 'Open Sans', Arial, sans-serif;  
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}

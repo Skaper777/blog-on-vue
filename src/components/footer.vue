@@ -1,6 +1,8 @@
 <template>
   <footer class="footer">
-    <p>All rights reserved</p>
+    <div class="main-container">
+      <p>2019. All rights reserved.</p>
+    </div>  
   </footer>
 </template>
 
@@ -14,5 +16,6 @@ export default {
   .footer
     width: 100%
     padding: 20px 0
-    background: aqua
+    background: #242529
+    color: white
 </style>

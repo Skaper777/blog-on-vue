@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="page">   
     <Header></Header> 
-    <post-container></post-container>
+    <index></index>
     <Footer></Footer>
   </div>
 </template>
@@ -9,26 +9,32 @@
 <script>
 
 import Header from '@/components/header'
-import PostContainer from '@/components/post-container'
 import Footer from '@/components/footer'
+
+import Index from '@/pages/index'
 
 export default {
   name: 'app',
   components: {  
     Header,
-    PostContainer,
+    Index,
     Footer
   }
 }
 </script>
 
-<style lang="sass">
+<style lang="sass"> 
+  body 
+    margin: 0
+    font-family: 'Open Sans', Arial, sans-serif   
+    color: #2b2626
+
   .page 
+    overflow-x: hidden
     display: flex
     flex-direction: column  
     height: 100vh
     justify-content: space-between  
-    max-width: 1170px
-    margin: 0 auto
+    min-width: 320px    
     text-align: center     
 </style>
