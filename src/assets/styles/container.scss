@@ -1,8 +1,12 @@
 .main-container {
   max-width: 1160px;
-  width: 1160px;
+  width: 100%;
   padding: 0 20px;
   margin: 0 auto;
+
+  @media(max-width: 1200px) {
+    max-width: 940px;
+  }
 }
 
 .container {
@@ -31,4 +35,18 @@ button {
   border: none;
   border-radius: 3px;
   cursor: pointer;
+}
+
+.btn {
+  background: #F3DA0B;      
+  padding: 10px;
+  font-weight: 700;
+  font-size: 18px;
+  transition: 0.2s;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background: white;
+  }  
 }

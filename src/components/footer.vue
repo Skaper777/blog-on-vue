@@ -14,6 +14,7 @@ export default {
 
 <style lang="sass">
   .footer
+    align-self: end
     width: 100%
     padding: 20px 0
     background: #242529

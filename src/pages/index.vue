@@ -7,15 +7,16 @@
 
         <div class="post-form">
           <h2 class="post-form__title">Заголовок</h2>
-          <input v-model.lazy="newPost.title" type="text" class="post-form__title">
+          <button class="post-form__close">Close</button>
+          <input v-model="newPost.title" type="text" class="post-form__title">
           <h2 class="post-form__title">Текст поста</h2>
-          <textarea v-model.lazy="newPost.text" class="post-form__text"></textarea>
-          <button @click="addPost" class="post-form__btn">Опубликовать</button>
+          <textarea v-model="newPost.text" class="post-form__text"></textarea>
+          <button @click="addPost" class="post-form__btn btn">Опубликовать</button>
         </div> 
 
         <div class="post-container">
           <p>Постов: {{ posts.length }}</p>
-          <post :remove="deletePost" :title="post.title" :text="post.text" v-for="(post, index) in posts" :key="index"></post>
+          <post :remove="deletePost" :author="post.name" :title="post.title" :text="post.text" v-for="(post, index) in posts" :key="index"></post>
         </div> 
 
       </div>
@@ -35,24 +36,26 @@ import Post from '@/components/post'
 import Sidebar from '@/components/sidebar'
 
 export default {
-  name: 'post-container',
-
+  name: 'post-container', 
   data() {
     return {
       newPost: {
         title: '',
         text: ''
       },
+      author: {
+        name: 'Sergey'
+      },
       posts: []
     }
-  },
-
+  }, 
   methods: {
     addPost() {
       if (this.newPost.title && this.newPost.text) {
-        this.posts.push({
+        this.posts.unshift({
           title: this.newPost.title,
-          text: this.newPost.text
+          text: this.newPost.text,   
+          name: this.author.name
         })
       }      
     },
@@ -85,6 +88,7 @@ export default {
         background: white
 
   .post-form
+    position: relative
     display: flex
     flex-direction: column    
     margin: 20px auto
@@ -97,6 +101,42 @@ export default {
       text-align: left
       font-size: 20px
 
+    &__close  
+      position: absolute
+      right: 20px
+      top: 20px
+      background: none
+      font-size: 0
+      width: 30px
+      height: 30px
+      transition: 0.2s
+
+      &:hover,
+      &:active,
+      &:focus 
+        background: #F3DA0B 
+
+      &:after,
+      &:before 
+        content: ""
+        position: absolute        
+        width: 100%
+        height: 2px
+        background: black       
+
+      &:after
+        transform: rotate(45deg)  
+        left: 0
+        top: 14px
+
+      &:before
+        transform: rotate(-45deg)  
+        left: 0
+        top: 14px  
+
+    &__btn 
+      width: 250px  
+
     input,
     textarea 
       padding: 10px
@@ -107,9 +147,6 @@ export default {
     textarea
       resize: none
       height: 150px
-         
-
-    &__btn 
-      font-family: 'Open Sans', Arial, sans-serif
+      font-size: 14px
 
 </style>

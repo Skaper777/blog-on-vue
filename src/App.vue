@@ -31,10 +31,10 @@ export default {
 
   .page 
     overflow-x: hidden
-    display: flex
-    flex-direction: column  
-    height: 100vh
-    justify-content: space-between  
+    display: grid
+    grid-auto-flow: row
+    width: 100%     
+    height: 100vh    
     min-width: 320px    
     text-align: center     
 </style>
