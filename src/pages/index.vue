@@ -3,11 +3,11 @@
     <div class="container">
       <div class="container__left">
 
-        <button class="main-page__create-post">Создать пост!</button>
+        <button @click="createForm" class="main-page__create-post">Создать пост!</button>
 
-        <div class="post-form">
+        <div ref="form" class="post-form">
           <h2 class="post-form__title">Заголовок</h2>
-          <button class="post-form__close">Close</button>
+          <button @click="deleteForm" class="post-form__close">Close</button>
           <input v-model="newPost.title" type="text" class="post-form__title">
           <h2 class="post-form__title">Текст поста</h2>
           <textarea v-model="newPost.text" class="post-form__text"></textarea>
@@ -61,6 +61,12 @@ export default {
     },
     deletePost(index) {
       this.posts.splice(index, 1)     
+    },
+    deleteForm() {
+      this.$refs.form.style = 'display: none'
+    },
+    createForm() {
+      this.$refs.form.style = 'display: flex'
     }
   },
 
@@ -89,13 +95,13 @@ export default {
 
   .post-form
     position: relative
-    display: flex
+    display: none
     flex-direction: column    
     margin: 20px auto
     border: 1px solid lightgrey
     border-radius: 3px
     padding: 10px
-    padding-bottom: 20px
+    padding-bottom: 20px    
 
     &__title 
       text-align: left
@@ -139,10 +145,12 @@ export default {
 
     input,
     textarea 
+      width: 100%
       padding: 10px
       border-radius: 3px
       margin-bottom: 10px
       border: 1px solid grey
+      box-sizing: border-box
 
     textarea
       resize: none

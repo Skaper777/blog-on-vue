@@ -22,7 +22,7 @@ export default {
 
 <style lang="sass">
   .header
-    width: 100%
+    width: 100%   
     color: white
     padding: 30px 0
     background: #A91D11
