@@ -8,17 +8,12 @@
 
 <script>
 
-import Header from '@/components/header'
-import Footer from '@/components/footer'
-
 import Index from '@/pages/index'
 
 export default {
   name: 'app',
-  components: {  
-    Header,
-    Index,
-    Footer
+  components: {   
+    Index,     
   }
 }
 </script>

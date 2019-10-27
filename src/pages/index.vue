@@ -3,11 +3,11 @@
     <div class="container">
       <div class="container__left">
 
-        <button @click="createForm" class="main-page__create-post">Создать пост!</button>
+        <button @click="showForm" class="main-page__create-post">Создать пост!</button>
 
-        <div ref="form" class="post-form">
+        <div v-if="visibleForm" class="post-form">
           <h2 class="post-form__title">Заголовок</h2>
-          <button @click="deleteForm" class="post-form__close">Close</button>
+          <button @click="hideForm" class="post-form__close">Close</button>
           <input v-model="newPost.title" type="text" class="post-form__title">
           <h2 class="post-form__title">Текст поста</h2>
           <textarea v-model="newPost.text" class="post-form__text"></textarea>
@@ -39,6 +39,7 @@ export default {
   name: 'post-container', 
   data() {
     return {
+      visibleForm: false,
       newPost: {
         title: '',
         text: ''
@@ -48,7 +49,7 @@ export default {
       },
       posts: []
     }
-  }, 
+  },  
   methods: {
     addPost() {
       if (this.newPost.title && this.newPost.text) {
@@ -62,11 +63,11 @@ export default {
     deletePost(index) {
       this.posts.splice(index, 1)     
     },
-    deleteForm() {
-      this.$refs.form.style = 'display: none'
+    hideForm() {
+      this.visibleForm = false
     },
-    createForm() {
-      this.$refs.form.style = 'display: flex'
+    showForm() {
+      this.visibleForm = true     
     }
   },
 
@@ -94,8 +95,7 @@ export default {
         background: white
 
   .post-form
-    position: relative
-    display: none
+    position: relative    
     flex-direction: column    
     margin: 20px auto
     border: 1px solid lightgrey
