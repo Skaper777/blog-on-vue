@@ -2,6 +2,7 @@
     <form class="login">
       <input type="email" name="name" placeholder="Email" required>
       <input type="password" name="pass" placeholder="Пароль" required>
+      <a href="#" class="login__reg-btn">Зарегестироваться</a>
       <button class="login__btn" type="submit">Войти</button>
     </form>    
 </template>
@@ -14,20 +15,25 @@ export default {
 
 <style lang="sass">
   .login
-    display: flex
-    flex-direction: column
-    align-items: flex-end
+    display: flex    
+    align-items: center
+    justify-content: space-between
+    flex-wrap: wrap
+    width: 250px
 
     input 
-      width: 250px
+      width: 100%
       margin-bottom: 10px
       border: 1px solid #F3DA0B
       border-radius: 3px
       padding: 5px
 
+    &__reg-btn 
+      font-size: 14px  
+
     &__btn
       background: #F3DA0B
-      width: 50%
+      width: 45%
       padding: 5px 0
       font-weight: 700
       transition: 0.2s

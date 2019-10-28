@@ -23,7 +23,6 @@
 
       <div class="container__right">
         <sidebar></sidebar>
-
       </div>
           
     </div>

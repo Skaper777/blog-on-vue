@@ -3,6 +3,7 @@
     <Header></Header> 
     <index></index>
     <Footer></Footer>
+    <Registration></Registration>
   </div>
 </template>
 
