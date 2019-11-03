@@ -2,14 +2,19 @@
     <form class="login">
       <input type="email" name="name" placeholder="Email" required>
       <input type="password" name="pass" placeholder="Пароль" required>
-      <a href="#" class="login__reg-btn">Зарегестироваться</a>
+      <a href="#" @click="showModal" class="login__reg-btn">Регистрация</a>
       <button class="login__btn" type="submit">Войти</button>
     </form>    
 </template>
 
 <script>
 export default {
-  name: 'app-login'
+  name: 'app-login',
+  methods: {
+    showModal() {
+      this.$emit('showModal')
+    }
+  }
 }
 </script>
 
@@ -30,6 +35,11 @@ export default {
 
     &__reg-btn 
       font-size: 14px  
+      text-decoration: underline
+      transition: 0.2s
+
+      &:hover 
+        color: #F3DA0B
 
     &__btn
       background: #F3DA0B

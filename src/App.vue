@@ -1,21 +1,16 @@
 <template>
   <div id="app" class="page">   
-    <Header></Header> 
-    <index></index>
+    <Header></Header>
+    <router-view></router-view> 
     <Footer></Footer>
-    <Registration></Registration>
+    <Registration></Registration>      
   </div>
 </template>
 
 <script>
 
-import Index from '@/pages/index'
-
 export default {
-  name: 'app',
-  components: {   
-    Index,     
-  }
+  name: 'app'  
 }
 </script>
 
