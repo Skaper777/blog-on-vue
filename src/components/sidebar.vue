@@ -1,5 +1,7 @@
 <template>
-  <section class="sidebar"></section>
+  <section class="sidebar">
+    <router-link to="/rubrics"><a>Рубрики:</a></router-link>
+  </section>
 </template>
 
 <script>

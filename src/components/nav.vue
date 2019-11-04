@@ -2,7 +2,7 @@
   <nav class="nav-menu">
     <ul class="nav-menu__list">
       <router-link class="nav-menu__item" tag="li" to="/contacts" active-class="nav-menu__item--active"><a>Контакты</a></router-link>
-      <router-link class="nav-menu__item" tag="li" to="/about-me" active-class="nav-menu__item--active"><a>Обо мне</a></router-link>
+      <router-link class="nav-menu__item" tag="li" to="/rubrics" active-class="nav-menu__item--active"><a>Рубрики</a></router-link>
     </ul>
   </nav> 
 </template>

@@ -1,7 +1,8 @@
 import VueRouter from 'vue-router'
 import Index from '@/pages/index'
 import Contacts from '@/pages/contacts'
-import AboutMe from '@/pages/about-me'
+import Rubrics from '@/pages/rubrics'
+import Rubric from '@/pages/rubric'
 
 export default new VueRouter({
   routes: [
@@ -14,8 +15,12 @@ export default new VueRouter({
       component: Contacts
     },
     {
-      path: '/about-me',
-      component: AboutMe
+      path: '/rubrics',
+      component: Rubrics
+    },
+    {
+      path: '/rubrics/:id',
+      component: Rubric
     }
   ],
   mode: 'history'
