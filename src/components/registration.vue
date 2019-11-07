@@ -50,7 +50,7 @@ export default {
     hideModal() {
       this.$refs.reg.style.display = 'none'
     }
-  },
+  }, 
   validations: {
     email: {
       required,

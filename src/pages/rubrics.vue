@@ -20,7 +20,10 @@ export default {
         other: 'Другое'
       }
     }
-  }
+  },
+  beforeRouteEnter (to, from, next) {
+    next()
+  }  
 }
 </script>
 
