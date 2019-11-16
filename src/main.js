@@ -3,6 +3,7 @@ import App from './App.vue'
 import Vuelidate from 'vuelidate'
 import VueRouter from 'vue-router'
 import router from '@/routes'
+// import Axios from 'axios'
 
 import fonts from './assets/main.scss'
 
@@ -12,6 +13,7 @@ import Registration from '@/components/registration'
 
 Vue.use(Vuelidate)
 Vue.use(VueRouter)
+// Vue.use(Axios)
 
 Vue.component('Header', Header)
 Vue.component('Footer', Footer)

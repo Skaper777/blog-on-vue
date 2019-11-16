@@ -7,11 +7,11 @@ import Error404 from '@/pages/error404'
 
 //оптимизация (ленивая загрузка)
 const Rubric = res => {
-  require.ensure(['./pages/rubric']), () => {
+  require.ensure(['./pages/rubric.vue'], () => {
     res(
       require('./pages/rubric')
     )
-  }
+  })
 }
 
 export default new VueRouter({

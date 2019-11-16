@@ -1,7 +1,7 @@
 <template>
   <div class="post">
     <header class="post__header">
-      <p class="post__header-author">Автор: <span>{{ author }}</span></p>
+      <p class="post__header-author">Автор: <span>Admin</span></p>
       <p class="post__header-date">{{ formatDate }}</p>
     </header>
     <h2 class="post__title">{{ title }}</h2>

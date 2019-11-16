@@ -33,6 +33,9 @@
 
 import Post from '@/components/post'
 import Sidebar from '@/components/sidebar'
+import Axios from 'axios'
+
+const DOMAIN = 'http://localhost:3000/posts'
 
 export default {
   name: 'post-container', 
@@ -42,21 +45,27 @@ export default {
       newPost: {
         title: '',
         text: ''
-      },
-      author: {
-        name: 'Sergey'
-      },
+      },     
       posts: []
     }
   },  
+  created() {
+    Axios(DOMAIN)
+      .then(res => this.posts = res.data.reverse())
+  },
   methods: {
     addPost() {
       if (this.newPost.title && this.newPost.text) {
-        this.posts.unshift({
+        const post = {
           title: this.newPost.title,
-          text: this.newPost.text,   
-          name: this.author.name
-        })
+          text: this.newPost.text  
+        }
+        
+        this.posts.unshift(post)
+        
+        Axios.post(DOMAIN, post)
+          .then(res => console.log(res))
+          .catch(error => console.log(error))        
       }      
     },
     deletePost(index) {
