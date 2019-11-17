@@ -1,7 +1,7 @@
 import VueRouter from 'vue-router'
 import Index from '@/pages/index'
 import Contacts from '@/pages/contacts'
-import Rubrics from '@/pages/rubrics'
+import Articles from '@/pages/articles'
 //import Rubric from '@/pages/rubric'
 import Error404 from '@/pages/error404'
 
@@ -26,11 +26,11 @@ export default new VueRouter({
       component: Contacts
     },
     {
-      path: '/rubrics',
-      component: Rubrics,     
+      path: '/articles',
+      component: Articles,     
     },
     {
-      path: '/rubrics/:id',
+      path: '/articles/:id',
       component: Rubric
     },
     {

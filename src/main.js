@@ -4,6 +4,7 @@ import Vuelidate from 'vuelidate'
 import VueRouter from 'vue-router'
 import router from '@/routes'
 // import Axios from 'axios'
+import store from '@/store'
 
 import fonts from './assets/main.scss'
 
@@ -23,6 +24,7 @@ Vue.config.productionTip = false
 
 new Vue({
   el: '#app',
+  store,
   modules: {
     fonts
   },

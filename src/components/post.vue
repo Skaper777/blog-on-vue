@@ -6,7 +6,7 @@
     </header>
     <h2 class="post__title">{{ title }}</h2>
     <p class="post__text">{{ text }}</p>
-    <button @click="remove()">Удалить</button>
+    <button @click="remove">Удалить</button>
   </div>     
 </template>
 

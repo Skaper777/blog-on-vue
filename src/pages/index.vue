@@ -15,7 +15,7 @@
         </div> 
 
         <div class="post-container">
-          <p>Постов: {{ posts.length }}</p>
+          <p>Постов: {{ postsCount }}</p>
           <post :remove="deletePost" :author="post.name" :title="post.title" :text="post.text" v-for="(post, index) in posts" :key="index"></post>
         </div> 
 
@@ -33,9 +33,9 @@
 
 import Post from '@/components/post'
 import Sidebar from '@/components/sidebar'
-import Axios from 'axios'
+//import Axios from 'axios'
 
-const DOMAIN = 'http://localhost:3000/posts'
+// const DOMAIN = 'http://localhost:3000/posts'
 
 export default {
   name: 'post-container', 
@@ -45,31 +45,40 @@ export default {
       newPost: {
         title: '',
         text: ''
-      },     
+      },
       posts: []
     }
-  },  
-  created() {
+  }, 
+  computed: {
+    postsCount() {
+      return this.$store.getters.getPostsLength // геттеры vuex
+    }
+  },
+  mounted() {
+    this.posts = this.$store.getters.getPosts // состояние vuex
+   
+  },
+  /*created() {
     Axios(DOMAIN)
       .then(res => this.posts = res.data.reverse())
-  },
+  },*/
   methods: {
     addPost() {
       if (this.newPost.title && this.newPost.text) {
         const post = {
           title: this.newPost.title,
           text: this.newPost.text  
-        }
-        
-        this.posts.unshift(post)
-        
-        Axios.post(DOMAIN, post)
+        }       
+
+        this.$store.dispatch('asyncAddPost', post) // actions vuex
+
+        /*Axios.post(DOMAIN, post)
           .then(res => console.log(res))
-          .catch(error => console.log(error))        
+          .catch(error => console.log(error))  */      
       }      
     },
     deletePost(index) {
-      this.posts.splice(index, 1)     
+      this.$store.commit('deletePostState', index) // mutations vuex    
     },
     hideForm() {
       this.visibleForm = false
@@ -78,7 +87,6 @@ export default {
       this.visibleForm = true     
     }
   },
-
   components: {
     Post,
     Sidebar
