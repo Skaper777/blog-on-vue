@@ -1,15 +1,28 @@
 <template> 
   <nav class="nav-menu">
     <ul class="nav-menu__list">
-      <router-link class="nav-menu__item" tag="li" to="/contacts" active-class="nav-menu__item--active"><a>Контакты</a></router-link>
-      <router-link class="nav-menu__item" tag="li" to="/articles" active-class="nav-menu__item--active"><a>Статьи</a></router-link>
+      <router-link class="nav-menu__item" v-for="link in links" :key="link" tag="li" :to="link.url" active-class="nav-menu__item--active"><a>{{link.name}}</a></router-link>      
     </ul>
   </nav> 
 </template>
 
 <script>
 export default {
-  name: 'nav-menu'
+  name: 'nav-menu',
+  data() {
+    return {
+      links: [
+        {
+          name: 'Контакты',
+          url: '/contacts'
+        },
+        {
+          name: 'Статьи',
+          url: '/articles'
+        }
+      ]
+    }
+  }
 }
 </script>
 
