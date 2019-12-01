@@ -1,7 +1,7 @@
 <template> 
   <nav class="nav-menu">
     <ul class="nav-menu__list">
-      <router-link class="nav-menu__item" v-for="link in links" :key="link" tag="li" :to="link.url" active-class="nav-menu__item--active"><a>{{link.name}}</a></router-link>      
+      <router-link class="nav-menu__item" v-for="link in links" :key="link.url" tag="li" :to="link.url" active-class="nav-menu__item--active"><a>{{link.name}}</a></router-link>      
     </ul>
   </nav> 
 </template>

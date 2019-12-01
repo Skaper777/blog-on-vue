@@ -1,7 +1,7 @@
 <template>
   <section class="rubric">  
 
-    <h1>{{id}}</h1>
+    <h1>{{name}}</h1>
 
    
     <button class="rubric-back" @click="goBack">Back</button>
@@ -14,7 +14,7 @@ export default {
   name: 'rubric',
   data() {
     return {
-      id: this.$route.params['id']
+      name: this.$route.params['alias']
     }
   },
   methods: {

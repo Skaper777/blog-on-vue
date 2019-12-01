@@ -3,7 +3,7 @@
     <h1>Статьи</h1>    
     <p>Количество статей: {{posts.length}}</p>
     <ul>
-      <router-link v-for="(value, name) in articlesList" :key="value" :to="'/articles/' + name" tag="li"><a>{{value}}</a></router-link>      
+      <router-link v-for="(value, name) in articlesList" :key="value" :to="{name: 'rubric', params: {id: name, alias: value}}" tag="li"><a>{{value}}</a></router-link>      
     </ul>
     
   </section>
