@@ -3,20 +3,32 @@
     <div class="container">
       <div class="container__left">
 
-        <button @click="showForm" class="main-page__create-post">Создать пост!</button>
+        <button @click="showForm" v-if="!visibleForm" class="main-page__create-post">Создать пост!</button>
 
         <div v-if="visibleForm" class="post-form">
           <h2 class="post-form__title">Заголовок</h2>
           <button @click="hideForm" class="post-form__close">Close</button>
-          <input v-model="newPost.title" type="text" class="post-form__title">
+          <input v-model="newPost.title" type="text" class="post-form__title" required>
+          <h2 class="post-form__title">Тема поста</h2>
+          <select v-model="newPost.rubric" type="select" class="post-form__rubric" required>
+            <option v-for="(rubric, index) in rubrics" :key="index">{{rubric}}</option>
+          </select>  
           <h2 class="post-form__title">Текст поста</h2>
-          <textarea v-model="newPost.text" class="post-form__text"></textarea>
+          <textarea v-model="newPost.text" class="post-form__text" required></textarea>
           <button @click="addPost" class="post-form__btn btn">Опубликовать</button>
         </div> 
 
         <div class="post-container">
           <p>Постов: {{ postsCount }}</p>
-          <post :remove="deletePost" :author="post.name" :title="post.title" :text="post.text" v-for="(post, index) in posts" :key="index"></post>
+          <post
+            :remove="deletePost"
+            :author="post.name" 
+            :title="post.title" 
+            :rubric="post.rubric" 
+            :text="post.text" 
+            v-for="(post, index) in posts" 
+            :key="index">
+          </post>
         </div> 
 
       </div>
@@ -44,8 +56,10 @@ export default {
       visibleForm: false,
       newPost: {
         title: '',
-        text: ''
+        text: '',
+        rubric: ''
       },
+      rubrics: {},
       posts: []
     }
   }, 
@@ -56,7 +70,7 @@ export default {
   },
   mounted() {
     this.posts = this.$store.getters.getPosts // состояние vuex
-   
+    this.rubrics = this.$store.getters.getRubrics
   },
   /*created() {
     Axios(DOMAIN)
@@ -64,10 +78,11 @@ export default {
   },*/
   methods: {
     addPost() {
-      if (this.newPost.title && this.newPost.text) {
+      if (this.newPost.title && this.newPost.text && this.newPost.rubric) {
         const post = {
           title: this.newPost.title,
-          text: this.newPost.text  
+          text: this.newPost.text,
+          rubric: this.newPost.rubric  
         }       
 
         this.$store.dispatch('asyncAddPost', post) // actions vuex
@@ -157,8 +172,9 @@ export default {
         top: 14px  
 
     &__btn 
-      width: 250px  
+      width: 250px   
 
+    select,
     input,
     textarea 
       width: 100%
@@ -167,6 +183,9 @@ export default {
       margin-bottom: 10px
       border: 1px solid grey
       box-sizing: border-box
+
+    select 
+      font-size: 18px  
 
     textarea
       resize: none

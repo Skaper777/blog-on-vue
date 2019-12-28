@@ -1,6 +1,11 @@
 export default {
   state: {
-    posts: []
+    posts: [],
+    articlesList: {
+      travels: 'Путешествия',
+      dev: 'Разработка',
+      other: 'Другое'
+    }
   },
   mutations: {
     addPostState(state, payload) {
@@ -16,8 +21,11 @@ export default {
     }
   },
   getters: {
-    getPosts(state) {
+    getPosts(state) {    
       return state.posts
+    },
+    getRubrics(state) {
+      return state.articlesList
     },
     getPostsLength(state) {
       return state.posts.length

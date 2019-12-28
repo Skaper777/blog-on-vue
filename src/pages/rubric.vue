@@ -14,7 +14,7 @@ export default {
   name: 'rubric',
   data() {
     return {
-      name: this.$route.params['alias']
+      name: this.$route.params['name']
     }
   },
   methods: {

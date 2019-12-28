@@ -2,6 +2,7 @@ import VueRouter from 'vue-router'
 import Index from '@/pages/index'
 import Contacts from '@/pages/contacts'
 import Articles from '@/pages/articles'
+import Article from '@/pages/article'
 //import Rubric from '@/pages/rubric'
 import Error404 from '@/pages/error404'
 
@@ -30,7 +31,12 @@ export default new VueRouter({
       component: Articles,     
     },
     {
-      path: '/articles/:id',
+      path: '/:id',
+      name: 'article',
+      component: Article
+    },
+    {
+      path: '/articles/:alias',
       name: 'rubric',
       component: Rubric
     },

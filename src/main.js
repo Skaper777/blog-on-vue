@@ -25,9 +25,10 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   store,
+  router,
   modules: {
     fonts
   },
-  render: h => h(App),
-  router
+  
+  render: h => h(App)
 })

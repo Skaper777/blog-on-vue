@@ -3,7 +3,12 @@
     <h1>Статьи</h1>    
     <p>Количество статей: {{posts.length}}</p>
     <ul>
-      <router-link v-for="(value, name) in articlesList" :key="value" :to="{name: 'rubric', params: {id: name, alias: value}}" tag="li"><a>{{value}}</a></router-link>      
+      <router-link
+          v-for="(value, key) in rubrics"
+          :key="value" :to="{name: 'rubric', params: {alias: key, name: value}}"
+          tag="li">
+        <a>{{value}}</a>
+      </router-link>      
     </ul>
     
   </section>
@@ -15,15 +20,12 @@ export default {
   data() {
     return {
       posts: [],
-      articlesList: {
-        travels: 'Путешествия',
-        dev: 'Разработка',
-        other: 'Другое'
-      }
+      rubrics: {}      
     }
   },
   mounted() {
     this.posts = this.$store.getters.getPosts
+    this.rubrics = this.$store.getters.getRubrics
   },
   beforeRouteEnter (to, from, next) {
     next()

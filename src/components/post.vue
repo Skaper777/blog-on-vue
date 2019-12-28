@@ -6,7 +6,10 @@
     </header>
     <h2 class="post__title">{{ title }}</h2>
     <p class="post__text">{{ text }}</p>
-    <button @click="remove">Удалить</button>
+    <footer class="post__footer">
+      <button @click="remove">Удалить</button>
+      <span class="post__footer-rubric">Тема: {{ rubric }}</span>
+    </footer>    
   </div>     
 </template>
 
@@ -35,6 +38,9 @@ export default {
       type: String
     },
     text: {
+      type: String
+    },
+    rubric: {
       type: String
     },
     remove: {
@@ -66,4 +72,23 @@ export default {
 
     &__title
       margin-top: 0  
+
+    &__footer 
+      display: flex 
+      justify-content: space-between
+      align-items: center
+
+      button 
+        background: #A91D11
+        padding: 6px
+        color: white
+        font-weight: 700      
+        transition: 0.2s
+
+        &:hover 
+          color: black
+          background: white
+
+      span 
+        font-size: 14px  
 </style>
