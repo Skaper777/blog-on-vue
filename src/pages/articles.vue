@@ -17,16 +17,16 @@
 <script>
 export default {
   name: 'articles',
-  data() {
-    return {
-      posts: [],
-      rubrics: {}      
+  
+  computed: {
+    posts() {
+      return this.$store.getters.getPosts
+    },
+    rubrics() {
+      return this.$store.getters.getRubrics
     }
   },
-  mounted() {
-    this.posts = this.$store.getters.getPosts
-    this.rubrics = this.$store.getters.getRubrics
-  },
+ 
   beforeRouteEnter (to, from, next) {
     next()
   }  

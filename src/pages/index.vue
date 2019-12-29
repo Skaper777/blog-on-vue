@@ -24,6 +24,7 @@
             :remove="deletePost"
             :author="post.name" 
             :title="post.title" 
+            :postId="post.id"
             :rubric="post.rubric" 
             :text="post.text" 
             v-for="(post, index) in posts" 
@@ -51,6 +52,7 @@ import Sidebar from '@/components/sidebar'
 
 export default {
   name: 'post-container', 
+
   data() {
     return {
       visibleForm: false,
@@ -58,24 +60,27 @@ export default {
         title: '',
         text: '',
         rubric: ''
-      },
-      rubrics: {},
-      posts: []
+      }
     }
   }, 
+
   computed: {
     postsCount() {
       return this.$store.getters.getPostsLength // геттеры vuex
+    },
+    posts() {
+      return this.$store.getters.getPosts
+    },
+    rubrics() {
+      return this.$store.getters.getRubrics
     }
-  },
-  mounted() {
-    this.posts = this.$store.getters.getPosts // состояние vuex
-    this.rubrics = this.$store.getters.getRubrics
-  },
+  },  
+
   /*created() {
     Axios(DOMAIN)
       .then(res => this.posts = res.data.reverse())
   },*/
+
   methods: {
     addPost() {
       if (this.newPost.title && this.newPost.text && this.newPost.rubric) {
@@ -102,6 +107,7 @@ export default {
       this.visibleForm = true     
     }
   },
+
   components: {
     Post,
     Sidebar

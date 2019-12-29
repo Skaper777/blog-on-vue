@@ -4,8 +4,11 @@
       <p class="post__header-author">Автор: <span>Admin</span></p>
       <p class="post__header-date">{{ formatDate }}</p>
     </header>
-    <h2 class="post__title">{{ title }}</h2>
-    <p class="post__text">{{ text }}</p>
+    <h2 class="post__title"><router-link :to="{name: 'article', params: {id: postId}}">{{ title }}</router-link></h2>
+    <div class="post__body">
+      <p class="post__text">{{ text }}</p>
+      <router-link class="post__read-all" :to="{name: 'article', params: {id: postId}}">Читать полностью</router-link>
+    </div>
     <footer class="post__footer">
       <button @click="remove">Удалить</button>
       <span class="post__footer-rubric">Тема: {{ rubric }}</span>
@@ -45,6 +48,9 @@ export default {
     },
     remove: {
       type: Function
+    },
+    postId: {
+      type: String | Number
     }
   }
 }
@@ -72,6 +78,20 @@ export default {
 
     &__title
       margin-top: 0  
+      text-decoration: underline
+
+    &__text 
+      height: 66px
+      overflow: hidden    
+
+    &__read-all   
+      display: block
+      text-align: center
+      font-weight: 700
+      transition: 0.2s
+
+      &:hover 
+        text-decoration: underline
 
     &__footer 
       display: flex 

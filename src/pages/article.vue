@@ -1,27 +1,27 @@
 <template>
-  <section class="article">
+  <section class="article main-container">
     <header class="article__header">
-      <h1>{{ title }}</h1>
+      <h1>{{ getArticle.title }}</h1>
     </header>
     <body class="article__body">
-      <p>{{ text }}</p>
+      <p>{{ getArticle.text }}</p>
     </body>
   </section>  
 </template>
 
 <script>
 export default {
-  name: 'article',
-
-  data() {
-    return {
-      title: 'Заголовок',
-      text: 'Текст поста'
+  props: ['id'],
+  computed: {
+    getArticle() {
+      const id = this.id
+      return this.$store.getters.getPostById(id)
     }
-  } 
+  }
 }
 </script>
 
 <style lang="sass" scoped>
-
+  .article__body
+    padding: 20px
 </style>

@@ -32,6 +32,7 @@ export default new VueRouter({
     },
     {
       path: '/:id',
+      props: true,
       name: 'article',
       component: Article
     },
