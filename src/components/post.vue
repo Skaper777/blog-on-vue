@@ -50,7 +50,7 @@ export default {
       type: Function
     },
     postId: {
-      type: String | Number
+      type: String || Number
     }
   }
 }
