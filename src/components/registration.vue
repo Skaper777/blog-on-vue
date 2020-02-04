@@ -24,7 +24,7 @@
         <input class="reg__field" :class="{'reg__field--invalid' : $v.confirm.$error}" v-model="confirm" type="password" id="confirm" @blur="$v.confirm.$touch()" name="confirm">
         <p class="reg__error" v-if="!$v.confirm.sameAs">Пароли не совпадают</p>
 
-        <button class="reg__btn btn" :disabled="$v.$invalid" type="submit">Зарегестрироваться</button>        
+        <button class="reg__btn btn" :disabled="$v.$invalid" :loading="loading" @click="sendData">Зарегестрироваться</button>        
        
       </form>
     </div>     
@@ -46,11 +46,29 @@ export default {
       confirm: ''
     }    
   },
+
   methods: {
+    sendData() {
+      const user = {
+        name: this.name,
+        email: this.email,
+        password: this.pass
+      }
+
+      this.$store.dispatch('registerUser', user)
+    },
+
     hideModal() {
       this.$refs.reg.style.display = 'none'
     }
   }, 
+
+  computed: {
+    loading() {
+      return this.$store.getters.loading
+    }
+  },
+
   validations: {
     email: {
       required,
