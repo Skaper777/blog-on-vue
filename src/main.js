@@ -6,7 +6,7 @@ import router from '@/routes'
 // import Axios from 'axios'
 import store from '@/store'
 import * as fb from 'firebase'
-import fonts from './assets/main.scss'
+import mainStyles from './assets/main.scss'
 
 import Header from '@/components/header'
 import Footer from '@/components/footer'
@@ -27,7 +27,7 @@ new Vue({
   store,
   router,
   modules: {
-    fonts
+    mainStyles
   },
   
   render: h => h(App),
@@ -41,6 +41,12 @@ new Vue({
       storageBucket: "blog-on-vue.appspot.com",
       messagingSenderId: "297921636407",
       appId: "1:297921636407:web:5a6168a0d9dd8d86bf37b2"
+    })
+
+    fb.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.$store.dispatch('autoLoginUser', user)
+      }
     })
   }
 })

@@ -3,48 +3,97 @@
     <div @click="hideModal" class="reg__background"></div>
     <div class="reg__modal">
       <button @click="hideModal" class="reg__modal-close"></button>
-      <form>
+      <div class="reg__modal-form">
         <label for="email">Введите email</label>
-        <input class="reg__field" :class="{'reg__field--invalid' : $v.email.$error}" v-model="email" type="email" id="email" @blur="$v.email.$touch()" name="email">        
+        <input
+          class="reg__field"
+          :class="{'reg__field--invalid' : $v.email.$error}"
+          v-model="email"
+          type="email"
+          id="email"
+          @blur="$v.email.$touch()"
+          name="email"
+        />
         <p class="reg__error" v-if="!$v.email.email">Введите корректное значение</p>
         <p class="reg__error" v-if="!$v.email.uniqueEmail">Такой email уже зарегестрирован</p>
 
         <label for="name">Введите имя</label>
-        <input class="reg__field" :class="{'reg__field--invalid' : $v.name.$error}" v-model="name" type="text" id="name" @blur="$v.name.$touch()" name="name">                   
-               
+        <input
+          class="reg__field"
+          :class="{'reg__field--invalid' : $v.name.$error}"
+          v-model="name"
+          type="text"
+          id="name"
+          @blur="$v.name.$touch()"
+          name="name"
+        />
+
         <label for="tel">Введите телефон</label>
-        <input class="reg__field" :class="{'reg__field--invalid' : $v.tel.$error}" v-model="tel" type="tel" id="tel" @blur="$v.tel.$touch()" name="tel">
-        <p class="reg__error" v-if="!$v.tel.numeric">Нужно вводить только числа</p> 
-        
+        <input
+          class="reg__field"
+          :class="{'reg__field--invalid' : $v.tel.$error}"
+          v-model="tel"
+          type="tel"
+          id="tel"
+          @blur="$v.tel.$touch()"
+          name="tel"
+        />
+        <p class="reg__error" v-if="!$v.tel.numeric">Нужно вводить только числа</p>
+
         <label for="pass">Введите пароль</label>
-        <input class="reg__field" :class="{'reg__field--invalid' : $v.pass.$error}" v-model="pass" type="password" id="pass" @blur="$v.pass.$touch()" name="pass">
+        <input
+          class="reg__field"
+          :class="{'reg__field--invalid' : $v.pass.$error}"
+          v-model="pass"
+          type="password"
+          id="pass"
+          @blur="$v.pass.$touch()"
+          name="pass"
+        />
         <p class="reg__error" v-if="!$v.pass.minLength">Должно быть не менее 6 символов</p>
 
         <label for="confirm">Подтвердите пароль</label>
-        <input class="reg__field" :class="{'reg__field--invalid' : $v.confirm.$error}" v-model="confirm" type="password" id="confirm" @blur="$v.confirm.$touch()" name="confirm">
+        <input
+          class="reg__field"
+          :class="{'reg__field--invalid' : $v.confirm.$error}"
+          v-model="confirm"
+          type="password"
+          id="confirm"
+          @blur="$v.confirm.$touch()"
+          name="confirm"
+        />
         <p class="reg__error" v-if="!$v.confirm.sameAs">Пароли не совпадают</p>
 
-        <button class="reg__btn btn" :disabled="$v.$invalid" :loading="loading" @click="sendData">Зарегестрироваться</button>        
-       
-      </form>
-    </div>     
-
+        <button
+          class="reg__btn btn"
+          :loading="loading"
+          :disabled="$v.$invalid || loading"
+          @click="sendData"
+        >Зарегестрироваться</button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { required, email, numeric, minLength, sameAs } from 'vuelidate/lib/validators'
+import {
+  required,
+  email,
+  numeric,
+  minLength,
+  sameAs
+} from "vuelidate/lib/validators";
 
 export default {
-  name: 'registration',
+  name: "registration",
   data() {
     return {
-      email: '',
-      name: '',     
-      tel: '',
-      pass: '',
-      confirm: ''
-    }    
+      email: "",
+      name: "",
+      tel: "",
+      pass: "",
+      confirm: ""
+    };
   },
 
   methods: {
@@ -53,19 +102,25 @@ export default {
         name: this.name,
         email: this.email,
         password: this.pass
-      }
+      };
 
-      this.$store.dispatch('registerUser', user)
+      this.$store
+        .dispatch("registerUser", user)
+        .then(() => {
+          console.log(this.$store.getters.getUser);
+          this.hideModal();
+        })
+        .catch(err => console.log(err));
     },
 
     hideModal() {
-      this.$refs.reg.style.display = 'none'
+      this.$refs.reg.style.display = "none";
     }
-  }, 
+  },
 
   computed: {
     loading() {
-      return this.$store.getters.loading
+      return this.$store.getters.loading;
     }
   },
 
@@ -73,27 +128,27 @@ export default {
     email: {
       required,
       email,
-      uniqueEmail(newEmail) {       
-        return newEmail !== 'test@mail.ru'
-      }        
+      uniqueEmail(newEmail) {
+        return newEmail !== "test@mail.ru";
+      }
     },
     name: {
-      required     
+      required
     },
     tel: {
       required,
       numeric
-    },   
+    },
     pass: {
       required,
       minLength: minLength(6)
     },
     confirm: {
       required,
-      sameAs: sameAs('pass')
+      sameAs: sameAs("pass")
     }
   }
-}
+};
 </script>
 
 <style lang="sass" scoped>  
@@ -156,7 +211,7 @@ export default {
       padding: 15px
       padding-top: 30px
 
-      form 
+      &-form 
         display: flex
         flex-direction: column
 
