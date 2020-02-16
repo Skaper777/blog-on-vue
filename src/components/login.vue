@@ -48,8 +48,7 @@ export default {
       };
 
       this.$store
-        .dispatch("loginUser", user)
-        .then(() => console.log(1))
+        .dispatch("loginUser", user)       
         .catch(err => console.log(err));
     },
 

@@ -2,7 +2,7 @@
   <div class="post">
     <header class="post__header">
       <p class="post__header-author">Автор: <span>Admin</span></p>
-      <p class="post__header-date">{{ formatDate }}</p>
+      <p class="post__header-date">{{ time }}</p>
     </header>
     <h2 class="post__title"><router-link :to="{name: 'article', params: {id: postId}}">{{ title }}</router-link></h2>
     <div class="post__body">
@@ -18,26 +18,16 @@
 
 <script>
 export default {
-  name: 'post',
-
-  data() {
-    return {
-      time: new Date()
-    }
-  },
-
-  computed: {
-    formatDate() {
-      let time = this.time.toString()
-      return time.slice(4, 25)
-    }
-  },
+  name: 'post',  
 
   props: {
     author: {
       type: String
     },
     title: {
+      type: String
+    },
+    time: {
       type: String
     },
     text: {

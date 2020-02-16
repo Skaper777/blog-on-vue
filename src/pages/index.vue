@@ -3,9 +3,9 @@
     <div class="container">
       <div class="container__left">
 
-        <button @click="showForm" v-if="!visibleForm" class="main-page__create-post">Создать пост!</button>
+        <button @click="showForm" v-if="!visibleForm && isLogin" class="main-page__create-post">Создать пост!</button>
 
-        <div v-if="visibleForm" class="post-form">
+        <form v-if="visibleForm" class="post-form">
           <h2 class="post-form__title">Заголовок</h2>
           <button @click="hideForm" class="post-form__close">Close</button>
           <input v-model="newPost.title" type="text" class="post-form__title" required>
@@ -15,21 +15,24 @@
           </select>  
           <h2 class="post-form__title">Текст поста</h2>
           <textarea v-model="newPost.text" class="post-form__text" required></textarea>
-          <button @click="addPost" class="post-form__btn btn">Опубликовать</button>
-        </div> 
+          <button @click.prevent="addPost" :disabled="loading" class="post-form__btn btn">Опубликовать</button>
+        </form> 
 
         <div class="post-container">
           <p>Постов: {{ postsCount }}</p>
-          <post
-            :remove="deletePost"
-            :author="post.name" 
-            :title="post.title" 
-            :postId="post.id"
-            :rubric="post.rubric" 
-            :text="post.text" 
-            v-for="(post, index) in posts" 
-            :key="index">
-          </post>
+          <div v-if="posts !== null">
+            <post
+              :remove="deletePost"
+              :author="post.name" 
+              :title="post.title" 
+              :time="post.time"
+              :postId="post.id"
+              :rubric="post.rubric" 
+              :text="post.text" 
+              v-for="(post, index) in posts" 
+              :key="index">
+            </post>
+          </div>
         </div> 
 
       </div>
@@ -46,9 +49,6 @@
 
 import Post from '@/components/post'
 import Sidebar from '@/components/sidebar'
-//import Axios from 'axios'
-
-// const DOMAIN = 'http://localhost:3000/posts'
 
 export default {
   name: 'post-container', 
@@ -59,6 +59,7 @@ export default {
       newPost: {
         title: '',
         text: '',
+        time: '',
         rubric: ''
       }
     }
@@ -68,42 +69,56 @@ export default {
     postsCount() {
       return this.$store.getters.getPostsLength // геттеры vuex
     },
+
     posts() {
       return this.$store.getters.getPosts
     },
+
     rubrics() {
       return this.$store.getters.getRubrics
+    },
+
+    isLogin() {
+      return this.$store.getters.isUserLoggedIn;
+    },
+
+    loading() {
+      return this.$store.getters.loading
     }
   },  
 
-  /*created() {
-    Axios(DOMAIN)
-      .then(res => this.posts = res.data.reverse())
-  },*/
-
-  methods: {
+  methods: {   
+    formatDate(timeData) {
+      let time = timeData.toString()
+      return time.slice(4, 25)
+    },
+  
     addPost() {
       if (this.newPost.title && this.newPost.text && this.newPost.rubric) {
+        const formatTime = this.formatDate(new Date())
+
         const post = {
           title: this.newPost.title,
           text: this.newPost.text,
+          time: formatTime,
           rubric: this.newPost.rubric  
         }       
 
-        this.$store.dispatch('asyncAddPost', post) // actions vuex
-
-        /*Axios.post(DOMAIN, post)
-          .then(res => console.log(res))
-          .catch(error => console.log(error))  */      
+        this.$store.dispatch('addPost', post)
+          .then(() => this.hideForm())
+          .catch(er => console.log(er))        
       }      
     },
+
     deletePost(index) {
       this.$store.commit('deletePostState', index) // mutations vuex    
     },
+
     hideForm() {
       this.visibleForm = false
     },
-    showForm() {
+
+    showForm() {     
       this.visibleForm = true     
     }
   },

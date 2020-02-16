@@ -1,26 +1,19 @@
+import * as fb from 'firebase'
+
+class Post {
+  constructor(title, text, time, rubric, userId, id = null) {
+    this.title = title,
+    this.text = text,    
+    this.time = time,
+    this.rubric = rubric,    
+    this.userId = userId
+    this.id = id
+  }
+}
+
 export default {
   state: {
-    posts: [
-      {
-        title: 'Первый пост',
-        text: 'Рыба-текст, не важно...Рыба-текст, не важно...Рыба-текст, не важно...Рыба-текст, не важно...Рыба-текст, не важно...Рыба-текст, не важно...Рыба-текст, не важно...',
-        rubric: 'Другое',
-        id: '1'
-      },
-      {
-        title: 'Второй пост',
-        text: 'Рыба-текст, не важно...Рыба-текст, не важно...Рыба-текст, не важно...Рыба-текст, не важно...',
-        rubric: 'Разработка',
-        id: '2'
-        
-      },
-      {
-        title: 'Третий пост',
-        text: 'Рыба-текст, не важно...Рыба-текст, не важно...Рыба-текст, не важно...Рыба-текст, не важно...Рыба-текст, не важно...Рыба-текст, не важно...Рыба-текст, не важно...Рыба-текст, не важно...Рыба-текст, не важно...Рыба-текст, не важно...',
-        rubric: 'Путешествия',
-        id: '3'
-      }
-    ],
+    posts: [],
 
     rubrics: {
       travels: 'Путешествия',
@@ -33,16 +26,63 @@ export default {
     addPostState(state, payload) {
       state.posts.unshift(payload)
     },
+
+    loadPosts(state, payload) {
+      state.posts = payload
+    },
+
     deletePostState(state, payload) {
       state.posts.splice(payload, 1)
     }
   },
 
   actions: {
-    asyncAddPost({commit}, payload) {
-      payload.id = Math.random() * 100
+    async fetchPosts({commit}) {
+      commit('clearError')
+      commit('setLoading', true)
 
-      commit('addPostState', payload)
+      const resultPosts = []
+
+      try {
+        const fbVals = await fb.database().ref('posts').once('value')
+        const posts = fbVals.val()
+        console.log(posts)
+        Object.keys(posts).forEach(key => {
+          const post = posts[key]
+
+          resultPosts.unshift(
+            new Post(post.title, post.text, post.time, post.rubric, post.userId, key)
+          )
+        })
+        
+        commit('loadPosts', resultPosts)
+        commit('setLoading', false)
+      } catch(err) {
+        commit('setError', err.message)
+        commit('setLoading', false)
+        throw err
+      }
+    },
+
+    async addPost({commit, getters}, payload) {      
+      commit('clearError')
+      commit('setLoading', true)
+
+      try {
+        const newPost = new Post(payload.title, payload.text, payload.time, payload.rubric, getters.getUser.id)
+        const post = await fb.database().ref('posts').push(newPost)
+        
+        commit('setLoading', false)
+        commit('addPostState', {...newPost, id: post.key})
+      } catch(err) {
+        commit('setError', err.message)
+        commit('setLoading', false)
+        throw err
+      }
+    },
+
+    async deletePost() {
+      
     }
   },
 
@@ -50,12 +90,19 @@ export default {
     getPosts(state) {    
       return state.posts
     },
+
     getRubrics(state) {
       return state.rubrics
     },
+
     getPostsLength(state) {
-      return state.posts.length
+      if (state.posts !== null) {
+        return state.posts.length
+      } 
+
+      return 0      
     },
+
     getPostById(state) {
       return postId => {
         return state.posts.find(post => post.id === postId)
