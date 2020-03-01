@@ -16,9 +16,9 @@ export default {
     posts: [],
 
     rubrics: {
-      travels: 'Путешествия',
-      dev: 'Разработка',
-      other: 'Другое'
+      travels: 'Travels',
+      dev: 'Development',
+      other: 'Other'
     }
   },
 
@@ -31,7 +31,7 @@ export default {
       state.posts = payload
     },
 
-    deletePostState(state, payload) {
+    deletePostState(state, payload) {      
       state.posts.splice(payload, 1)
     }
   },
@@ -46,7 +46,7 @@ export default {
       try {
         const fbVals = await fb.database().ref('posts').once('value')
         const posts = fbVals.val()
-        console.log(posts)
+        
         Object.keys(posts).forEach(key => {
           const post = posts[key]
 
@@ -81,13 +81,14 @@ export default {
       }
     },
 
-    async deletePost() {
-      
+    async deletePost({commit}, payload) {     
+      //await fb.database().ref('posts').child(id).remove()
+      commit('deletePostState', payload)
     }
   },
 
   getters: {
-    getPosts(state) {    
+    getPosts(state) {         
       return state.posts
     },
 

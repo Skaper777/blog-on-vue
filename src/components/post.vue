@@ -1,17 +1,20 @@
 <template>
   <div class="post">
     <header class="post__header">
-      <p class="post__header-author">Автор: <span>Admin</span></p>
+      <p class="post__header-author">Author: <span>Admin</span></p>
       <p class="post__header-date">{{ time }}</p>
     </header>
     <h2 class="post__title"><router-link :to="{name: 'article', params: {id: postId}}">{{ title }}</router-link></h2>
     <div class="post__body">
       <p class="post__text">{{ text }}</p>
-      <router-link class="post__read-all" :to="{name: 'article', params: {id: postId}}">Читать полностью</router-link>
+      <router-link class="post__read-all" :to="{name: 'article', params: {id: postId}}">Read more</router-link>
     </div>
     <footer class="post__footer">
-      <button @click="remove">Удалить</button>
-      <span class="post__footer-rubric">Тема: {{ rubric }}</span>
+      <div class="post__footer-actions">
+        <button class="post__footer-actions-delete" @click="remove">Delete</button>
+        <button class="post__footer-actions-edit" @click="edit">Edit</button>
+      </div>      
+      <span class="post__footer-rubric">Theme: {{ rubric }}</span>
     </footer>    
   </div>     
 </template>
@@ -37,6 +40,9 @@ export default {
       type: String
     },
     remove: {
+      type: Function
+    },
+    edit: {
       type: Function
     },
     postId: {
@@ -88,16 +94,23 @@ export default {
       justify-content: space-between
       align-items: center
 
-      button 
-        background: #A91D11
-        padding: 6px
+      &-actions-delete
+        background: #A91D11  
         color: white
+
+      &-actions-edit
+        background: #F3DA0B  
+        color: black
+
+      button         
+        margin-right: 10px
+        padding: 6px        
         font-weight: 700      
         transition: 0.2s
 
         &:hover 
           color: black
-          background: white
+          background: white        
 
       span 
         font-size: 14px  

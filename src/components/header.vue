@@ -2,7 +2,7 @@
   <header class="header">
     <div class="main-container">
       <div class="header__wrapper">
-        <h1><router-link to="/">Мой блог</router-link></h1>
+        <h1><router-link to="/">My blog</router-link></h1>
         <app-nav></app-nav>
         <app-login @showModal="openModal"></app-login>
       </div>

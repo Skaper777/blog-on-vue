@@ -3,26 +3,26 @@
     <div class="container">
       <div class="container__left">
 
-        <button @click="showForm" v-if="!visibleForm && isLogin" class="main-page__create-post">Создать пост!</button>
+        <button @click="showForm" v-if="!visibleForm && isLogin" class="main-page__create-post">Create new article!</button>
 
         <form v-if="visibleForm" class="post-form">
-          <h2 class="post-form__title">Заголовок</h2>
+          <h2 class="post-form__title">Title</h2>
           <button @click="hideForm" class="post-form__close">Close</button>
           <input v-model="newPost.title" type="text" class="post-form__title" required>
-          <h2 class="post-form__title">Тема поста</h2>
+          <h2 class="post-form__title">Article theme</h2>
           <select v-model="newPost.rubric" type="select" class="post-form__rubric" required>
             <option v-for="(rubric, index) in rubrics" :key="index">{{rubric}}</option>
           </select>  
-          <h2 class="post-form__title">Текст поста</h2>
+          <h2 class="post-form__title">Article text</h2>
           <textarea v-model="newPost.text" class="post-form__text" required></textarea>
-          <button @click.prevent="addPost" :disabled="loading" class="post-form__btn btn">Опубликовать</button>
+          <button @click.prevent="addPost" :disabled="loading" class="post-form__btn btn">Publish</button>
         </form> 
 
         <div class="post-container">
-          <p>Постов: {{ postsCount }}</p>
+          <p>Articles count: {{ postsCount }}</p>
           <div v-if="posts !== null">
-            <post
-              :remove="deletePost"
+            <post              
+              :edit="openEditForm"
               :author="post.name" 
               :title="post.title" 
               :time="post.time"
@@ -30,6 +30,7 @@
               :rubric="post.rubric" 
               :text="post.text" 
               v-for="(post, index) in posts" 
+              :remove="deletePost"
               :key="index">
             </post>
           </div>
@@ -40,7 +41,7 @@
       <div class="container__right">
         <sidebar></sidebar>
       </div>
-          
+      
     </div>
   </section>        
 </template>
@@ -48,6 +49,7 @@
 <script>
 
 import Post from '@/components/post'
+// import EditPost from '@/components/edit-post'
 import Sidebar from '@/components/sidebar'
 
 export default {
@@ -88,6 +90,11 @@ export default {
   },  
 
   methods: {   
+    openEditForm() {      
+      console.log(1)
+      //this.$refs.edit.style.display = 'block'
+    },
+
     formatDate(timeData) {
       let time = timeData.toString()
       return time.slice(4, 25)
@@ -111,7 +118,8 @@ export default {
     },
 
     deletePost(index) {
-      this.$store.commit('deletePostState', index) // mutations vuex    
+      
+      this.$store.dispatch('deletePost', index)   
     },
 
     hideForm() {
@@ -125,7 +133,8 @@ export default {
 
   components: {
     Post,
-    Sidebar
+    Sidebar,
+    // EditPost
   } 
 }
 </script>

@@ -13,11 +13,11 @@ export default {
     return {
       links: [
         {
-          name: 'Контакты',
+          name: 'Contacts',
           url: '/contacts'
         },
         {
-          name: 'Статьи',
+          name: 'Articles',
           url: '/articles'
         }
       ]

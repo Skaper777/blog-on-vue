@@ -1,6 +1,6 @@
 <template>
   <section class="sidebar">
-    <router-link class="sidebar__title" to="/articles">Рубрики:</router-link>
+    <router-link class="sidebar__title" to="/articles">Rubrics:</router-link>
     <ul class="sidebar__list">
       <li v-for="(value, key) in rubrics" :key="key"><router-link :to="{name: 'rubric', params: {alias: key, name: value}}">{{value}}</router-link></li>
     </ul>

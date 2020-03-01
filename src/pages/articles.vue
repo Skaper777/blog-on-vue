@@ -1,7 +1,7 @@
 <template>
   <section class="articles">
-    <h1>Статьи</h1>    
-    <p>Количество статей: {{posts.length}}</p>
+    <h1>Articles</h1>    
+    <p>Count: {{posts.length}}</p>
     <ul>
       <router-link
           v-for="(value, key) in rubrics"

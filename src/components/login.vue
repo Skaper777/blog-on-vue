@@ -1,8 +1,9 @@
 <template>
   <div class="login-wrapper">
-    <div v-if="!isLogin" class="login">
-      <input type="email" name="name" v-model="email" id="email-login" placeholder="Email" required />
+    <form v-if="!isLogin" class="login">
+      <input autocomplete="username" type="email" name="name" v-model="email" id="email-login" placeholder="Email" required />
       <input
+        autocomplete="current-password"
         type="password"
         name="pass"
         v-model="pass"
@@ -16,11 +17,11 @@
         :loading="loading"
         :disabled="$v.$invalid || loading"
         @click="onSubmit"
-      >Войти</button>
-    </div>
+      >Log in</button>
+    </form>
     <div v-else class="login-success">
       <h1>Hello!</h1>
-      <button class="login-success__btn" @click="onLogout">Выйти</button>
+      <button class="login-success__btn" @click.prevent="onLogout">log out</button>
     </div>
   </div>
 </template>
@@ -38,7 +39,7 @@ export default {
   },
   methods: {
     showModal() {
-      this.$emit("showModal");      
+      this.$emit("showModal");
     },
 
     onSubmit() {
@@ -47,18 +48,16 @@ export default {
         password: this.pass
       };
 
-      this.$store
-        .dispatch("loginUser", user)       
-        .catch(err => console.log(err));
+      this.$store.dispatch("loginUser", user).catch(err => console.log(err));
     },
 
     onLogout() {
-      if (this.$route.name !== 'home') {
-        this.$router.push('/')
-        this.$store.dispatch('logoutUser')
+      if (this.$route.name !== "home") {
+        this.$router.push("/");
+        this.$store.dispatch("logoutUser");
       }
-      
-      this.$store.dispatch('logoutUser')
+
+      this.$store.dispatch("logoutUser");
     }
   },
 

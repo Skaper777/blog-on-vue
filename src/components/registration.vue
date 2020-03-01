@@ -3,9 +3,10 @@
     <div @click="hideModal" class="reg__background"></div>
     <div class="reg__modal">
       <button @click="hideModal" class="reg__modal-close"></button>
-      <div class="reg__modal-form">
+      <form class="reg__modal-form">
         <label for="email">Введите email</label>
         <input
+          autocomplete="email"
           class="reg__field"
           :class="{'reg__field--invalid' : $v.email.$error}"
           v-model="email"
@@ -42,6 +43,7 @@
 
         <label for="pass">Введите пароль</label>
         <input
+          autocomplete="new-password"
           class="reg__field"
           :class="{'reg__field--invalid' : $v.pass.$error}"
           v-model="pass"
@@ -54,6 +56,7 @@
 
         <label for="confirm">Подтвердите пароль</label>
         <input
+          autocomplete="confirm-password"
           class="reg__field"
           :class="{'reg__field--invalid' : $v.confirm.$error}"
           v-model="confirm"
@@ -68,9 +71,9 @@
           class="reg__btn btn"
           :loading="loading"
           :disabled="$v.$invalid || loading"
-          @click="sendData"
+          @click.prevent="sendData"
         >Зарегестрироваться</button>
-      </div>
+      </form>
     </div>
   </div>
 </template>
