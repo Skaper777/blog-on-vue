@@ -11,8 +11,8 @@
     </div>
     <footer class="post__footer">
       <div class="post__footer-actions">
-        <button class="post__footer-actions-delete" @click="remove">Delete</button>
-        <button class="post__footer-actions-edit" @click="edit">Edit</button>
+        <button v-if="login" class="post__footer-actions-delete" @click="remove()">Delete</button>
+        <button v-if="login" class="post__footer-actions-edit" @click="edit">Edit</button>
       </div>      
       <span class="post__footer-rubric">Theme: {{ rubric }}</span>
     </footer>    
@@ -22,6 +22,12 @@
 <script>
 export default {
   name: 'post',  
+
+  methods: {
+    remove() {
+      this.$emit('remove')
+    }
+  },
 
   props: {
     author: {
@@ -38,15 +44,15 @@ export default {
     },
     rubric: {
       type: String
-    },
-    remove: {
-      type: Function
-    },
+    },    
     edit: {
       type: Function
     },
     postId: {
       type: String || Number
+    },
+    login: {
+      type: Boolean
     }
   }
 }

@@ -29,8 +29,9 @@
               :postId="post.id"
               :rubric="post.rubric" 
               :text="post.text" 
+              :login="isLogin"
               v-for="(post, index) in posts" 
-              :remove="deletePost"
+              @remove="deletePost(index, post.id)"
               :key="index">
             </post>
           </div>
@@ -117,9 +118,13 @@ export default {
       }      
     },
 
-    deletePost(index) {
+    deletePost(index, id) {
+      const payload = {
+        i: index,
+        id: id 
+      }
       
-      this.$store.dispatch('deletePost', index)   
+      this.$store.dispatch('deletePost', payload)   
     },
 
     hideForm() {

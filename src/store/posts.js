@@ -31,7 +31,8 @@ export default {
       state.posts = payload
     },
 
-    deletePostState(state, payload) {      
+    deletePostState(state, payload) { 
+      console.log(payload)     
       state.posts.splice(payload, 1)
     }
   },
@@ -82,8 +83,8 @@ export default {
     },
 
     async deletePost({commit}, payload) {     
-      //await fb.database().ref('posts').child(id).remove()
-      commit('deletePostState', payload)
+      await fb.database().ref('posts').child(payload.id).remove()
+      commit('deletePostState', payload.i)
     }
   },
 
