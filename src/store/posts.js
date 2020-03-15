@@ -31,8 +31,7 @@ export default {
       state.posts = payload
     },
 
-    deletePostState(state, payload) { 
-      console.log(payload)     
+    deletePostState(state, payload) {       
       state.posts.splice(payload, 1)
     }
   },

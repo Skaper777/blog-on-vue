@@ -11,8 +11,7 @@
     </div>
     <footer class="post__footer">
       <div class="post__footer-actions">
-        <button v-if="login" class="post__footer-actions-delete" @click="remove()">Delete</button>
-        <button v-if="login" class="post__footer-actions-edit" @click="edit">Edit</button>
+        <button v-if="login" class="post__footer-actions-delete" @click="remove()">Delete</button>        
       </div>      
       <span class="post__footer-rubric">Theme: {{ rubric }}</span>
     </footer>    

@@ -7,16 +7,21 @@
           v-for="(value, key) in rubrics"
           :key="value" :to="{name: 'rubric', params: {alias: key, name: value}}"
           tag="li">
-        <a>{{value}}</a>
+        <a>{{value}} {{postsForRubric(value)}}</a>
       </router-link>      
-    </ul>
-    
+    </ul>    
   </section>
 </template>
 
 <script>
 export default {
   name: 'articles',
+
+  methods: {
+    postsForRubric(rubric) {
+      return '(' + this.$store.getters.getPosts.filter(item => item.rubric === rubric).length + ')'   
+    }
+  },
   
   computed: {
     posts() {
